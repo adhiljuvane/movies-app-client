@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { Form, Input, Button, Checkbox, Typography } from "antd";
 import { AiOutlineUser, AiTwotoneLock } from "react-icons/ai";
 import { useDispatch } from "react-redux";
+import background from "../../../assets/background.jpg";
 
 const { Title } = Typography;
 
@@ -85,9 +86,23 @@ function LoginPage(props) {
           handleReset,
         } = props;
         return (
-          <div className="app">
-            <Title level={2}>Log In</Title>
-            <form onSubmit={handleSubmit} style={{ width: "350px" }}>
+          <div
+            className="app"
+            style={{ backgroundImage: `url(${background})` }}
+          >
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                width: "350px",
+                backgroundColor: "rgba(36,37,42,0.8)",
+                padding: "20px",
+                color: "white",
+                borderRadius: "10px",
+              }}
+            >
+              <Title level={2} style={{ color: "white" }}>
+                Sign In
+              </Title>
               <Form.Item required>
                 <Input
                   id="email"
@@ -148,11 +163,12 @@ function LoginPage(props) {
                 </label>
               )}
 
-              <Form.Item>
+              <Form.Item style={{ color: "white" }}>
                 <Checkbox
                   id="rememberMe"
                   onChange={handleRememberMe}
                   checked={rememberMe}
+                  style={{ color: "white" }}
                 >
                   Remember me
                 </Checkbox>

@@ -4,8 +4,11 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { registerUser } from "../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
+import background from "../../../assets/background.jpg";
 
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Typography } from "antd";
+
+const { Title } = Typography;
 
 const formItemLayout = {
   labelCol: {
@@ -89,14 +92,25 @@ function RegisterPage(props) {
           handleReset,
         } = props;
         return (
-          <div className="app">
-            <h2>Sign up</h2>
+          <div
+            className="app"
+            style={{ backgroundImage: `url(${background})` }}
+          >
             <Form
-              style={{ minWidth: "375px" }}
+              style={{
+                width: "350px",
+                backgroundColor: "rgba(36,37,42,0.8)",
+                padding: "20px",
+                color: "white",
+                borderRadius: "10px",
+              }}
               {...formItemLayout}
               onSubmit={handleSubmit}
             >
-              <Form.Item required label="Name">
+              <Title level={2} style={{ color: "white" }}>
+                Sign Up
+              </Title>
+              <Form.Item required label="Name" style={{ color: "white" }}>
                 <Input
                   id="name"
                   placeholder="Enter your name"

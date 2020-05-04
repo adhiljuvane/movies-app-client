@@ -38,3 +38,7 @@ input.error {
   color: red;
   height: 5px;
 }
+
+.ant-form-item-label {
+  color: #fff !important;
+}
