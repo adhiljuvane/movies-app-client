@@ -4,6 +4,18 @@ import axios from "axios";
 import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 
 const SingleReview = (props) => {
+  const [User, setUser] = useState([]);
+
+  useEffect(() => {
+    const data = {
+      id: props.userFrom,
+    };
+    axios.post("/api/users/user", data).then((response) => {
+      if (response.data.user) {
+        setUser(response.data.user);
+      }
+    });
+  }, []);
   return (
     <div
       style={{
@@ -21,7 +33,9 @@ const SingleReview = (props) => {
         }}
       >
         <BsPerson />
-        <div style={{ marginLeft: "3px" }}>{props.userFrom}</div>
+        <div style={{ marginLeft: "3px" }}>
+          {User.name ? User.name : props.userFrom}
+        </div>
       </div>
       <hr style={{ color: "white" }} />
       <div>{props.review}</div>
