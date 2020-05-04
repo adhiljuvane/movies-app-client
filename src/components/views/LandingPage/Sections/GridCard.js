@@ -1,6 +1,7 @@
 import React from "react";
 import { Col } from "antd";
 import { Link } from "react-router-dom";
+import "./GridCard.css";
 
 function GridCard(props) {
   if (props.actor) {
@@ -35,7 +36,7 @@ function GridCard(props) {
   } else {
     return (
       <Col lg={6} md={8} sm={12} xs={24}>
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative" }} className="card">
           <Link to={`/movie/${props.movieId}`}>
             <img
               style={{ width: "100%", height: "320px" }}

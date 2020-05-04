@@ -44,8 +44,10 @@ function RightMenu(props) {
         mode={props.mode}
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
-        <div className="sign-in-button">
-          <a onClick={logoutHandler}>Logout</a>
+        <div>
+          <a onClick={logoutHandler} className="sign-in-button">
+            Logout
+          </a>
         </div>
       </div>
     );

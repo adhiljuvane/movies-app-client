@@ -30,7 +30,14 @@ const LandingPage = () => {
     fetchMovies(endpoint);
   };
   return (
-    <div style={{ width: "100%", margin: 0, scrollbarWidth: "none" }}>
+    <div
+      style={{
+        width: "100%",
+        margin: 0,
+        scrollbarWidth: "none",
+        backgroundColor: "#24252A",
+      }}
+    >
       {Movies[1] && (
         <MainImage
           image={`${IMAGE_URL}w1280${Movies[1].backdrop_path}`}
@@ -40,8 +47,10 @@ const LandingPage = () => {
       )}
 
       {/* Body */}
-      <div style={{ width: "85%", margin: "1rem auto" }}>
-        <Title level={2}>Movies By Latest</Title>
+      <div style={{ width: "85%", margin: "1rem auto", marginBottom: "0px" }}>
+        <Title level={2} style={{ color: "white" }}>
+          Movies By Latest
+        </Title>
         <hr />
         {/*Grid cards */}
         <Row gutter={[16, 6]}>
@@ -59,8 +68,17 @@ const LandingPage = () => {
         </Row>
 
         {/*Load more button */}
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <button onClick={handleClick}>Load More</button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "5px",
+            marginBottom: "0px",
+          }}
+        >
+          <button onClick={handleClick} className="sign-in-button">
+            Load More
+          </button>
         </div>
       </div>
     </div>
