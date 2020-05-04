@@ -4,14 +4,26 @@ import { Link } from "react-router-dom";
 
 function LeftMenu(props) {
   return (
-    <Menu mode={props.mode}>
-      <Menu.Item key="home">
-        <Link to="/">Home</Link>
-      </Menu.Item>
-      <Menu.Item key="favourites">
-        <Link to="/favourite">Favourites</Link>
-      </Menu.Item>
-    </Menu>
+    <div
+      mode={props.mode}
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        border: "none",
+      }}
+    >
+      <div>
+        <Link to="/" className="normal-button">
+          Home
+        </Link>
+      </div>
+      <div>
+        <Link to="/favourite" className="normal-button">
+          Favourites
+        </Link>
+      </div>
+    </div>
   );
 }
 

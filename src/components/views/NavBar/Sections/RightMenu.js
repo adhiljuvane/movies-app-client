@@ -22,22 +22,32 @@ function RightMenu(props) {
 
   if (user.userData && !user.userData.isAuth) {
     return (
-      <Menu mode={props.mode}>
-        <Menu.Item key="mail">
-          <Link to="/login">Signin</Link>
-        </Menu.Item>
-        <Menu.Item key="app">
-          <a href="/register">Signup</a>
-        </Menu.Item>
-      </Menu>
+      <div
+        mode={props.mode}
+        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+      >
+        <div>
+          <Link to="/login" className="sign-in-button">
+            Sign In
+          </Link>
+        </div>
+        <div>
+          <Link to="/register" className="sign-in-button">
+            Sign Up
+          </Link>
+        </div>
+      </div>
     );
   } else {
     return (
-      <Menu mode={props.mode}>
-        <Menu.Item key="logout">
+      <div
+        mode={props.mode}
+        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+      >
+        <div className="sign-in-button">
           <a onClick={logoutHandler}>Logout</a>
-        </Menu.Item>
-      </Menu>
+        </div>
+      </div>
     );
   }
 }
