@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
+import axios from "axios";
 import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 
 const SingleReview = (props) => {
@@ -20,14 +21,10 @@ const SingleReview = (props) => {
         }}
       >
         <BsPerson />
-        <div style={{ marginLeft: "3px" }}>Adhil Juvane</div>
+        <div style={{ marginLeft: "3px" }}>{props.userFrom}</div>
       </div>
       <hr style={{ color: "white" }} />
-      <div>
-        Ex dolor mollit pariatur fugiat. Fugiat dolor consequat est minim esse.
-        Ad ea ut fugiat non deserunt. Culpa sunt dolor consectetur elit est
-        dolore Lorem eiusmod Lorem in.
-      </div>
+      <div>{props.review}</div>
       <div
         style={{
           width: "100%",

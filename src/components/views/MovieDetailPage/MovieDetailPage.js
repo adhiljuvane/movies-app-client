@@ -89,8 +89,11 @@ function MovieDetailPage(props) {
           )}
       </Row>
       <Title style={{ margin: "1rem" }}>Reviews</Title>
-      <WriteReview />
-      <Reviews />
+      <WriteReview
+        userFrom={localStorage.getItem("userId")}
+        movieId={movieId}
+      />
+      <Reviews movieId={movieId} />
     </div>
   );
 }
