@@ -23,6 +23,11 @@ function LeftMenu(props) {
           Favourites
         </Link>
       </div>
+      <div>
+        <Link to="/friends" className="normal-button">
+          Freinds
+        </Link>
+      </div>
     </div>
   );
 }

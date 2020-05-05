@@ -42,3 +42,12 @@ input.error {
 .ant-form-item-label {
   color: #fff !important;
 }
+
+.ant-tabs-tab-active {
+  color: rgb(237, 240, 241) !important;
+  border-color: rgb(237, 240, 241) !important;
+}
+
+.ant-tabs-tab:hover {
+  color: rgb(237, 240, 241) !important;
+}

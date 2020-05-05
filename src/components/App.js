@@ -9,6 +9,7 @@ import LandingPage from "./views/LandingPage/LandingPage";
 import Footer from "./views/Footer/Footer";
 import MovieDetailPage from "./views/MovieDetailPage/MovieDetailPage";
 import FavouritePage from "./views/FavouritePage/FavouritePage";
+import FriendsPage from "./views/FriendsPage/FriendsPage";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             path="/favourite"
             component={Auth(FavouritePage, null)}
           />
+          <Route exact path="/friends" component={Auth(FriendsPage, null)} />
         </Switch>
       </div>
       <Footer />
