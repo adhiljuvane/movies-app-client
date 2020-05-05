@@ -76,7 +76,11 @@ const LandingPage = () => {
             marginBottom: "0px",
           }}
         >
-          <button onClick={handleClick} className="sign-in-button">
+          <button
+            onClick={handleClick}
+            className="sign-in-button"
+            style={{ marginBottom: "20px", marginTop: "20px" }}
+          >
             Load More
           </button>
         </div>

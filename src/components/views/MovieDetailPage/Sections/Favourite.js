@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "antd";
 import axios from "axios";
+import { AiFillHeart } from "react-icons/ai";
 
 const Favourite = (props) => {
   const [FavouriteNumber, setFavouriteNumber] = useState(0);
@@ -62,14 +62,27 @@ const Favourite = (props) => {
       style={{
         position: "relative",
         float: "right",
-        top: "-50px",
+        top: "-80px",
         right: "10px",
+        display: "flex",
+        flexDirection: "row",
       }}
     >
-      <Button onClick={onClickFavourite}>
+      <div onClick={onClickFavourite} className="sign-in-button">
         {Favourited ? "Remove from Favourites" : "Add to Favourites"}
+      </div>
+      <div
+        className="sign-in-button"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
+      >
+        <AiFillHeart />
         {FavouriteNumber}
-      </Button>
+      </div>
     </div>
   );
 };

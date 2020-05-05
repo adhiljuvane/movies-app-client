@@ -30,7 +30,14 @@ const WriteReview = (props) => {
   };
 
   return (
-    <div style={{ margin: "1rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        margin: "1rem",
+        marginBottom: "0px",
+      }}
+    >
       <TextArea
         placeholder="writeyour review...."
         rows={3}
@@ -38,7 +45,12 @@ const WriteReview = (props) => {
         value={Review}
         onChange={handleChange}
         onPressEnter={onReviewSubmitted}
-        style={{ borderRadius: "10px", padding: "4px" }}
+        style={{
+          borderRadius: "10px",
+          padding: "7px",
+          margin: "5px auto",
+          width: "80%",
+        }}
       />
     </div>
   );

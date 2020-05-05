@@ -6,7 +6,7 @@ function Footer() {
     <div
       style={{
         height: "250px",
-        backgroundColor: "#84DCCF",
+        backgroundColor: "#0088a9",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -18,14 +18,14 @@ function Footer() {
         style={{
           width: "30%",
           height: "100%",
-          color: "#24252A",
+          color: "#edf0f1",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "flex-start",
         }}
       >
-        <h1>Carpe Diem</h1>
+        <h1 style={{ color: "#edf0f1" }}>Carpe Diem</h1>
         <div>
           Dolore incididunt dolore irure ullamco dolor quis ea. Amet in velit
           pariatur dolor nisi cupidatat irure eu tempor dolor pariatur.
@@ -37,7 +37,7 @@ function Footer() {
         style={{
           width: "60%",
           height: "100%",
-          color: "#24252A",
+          color: "#edf0f1",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",

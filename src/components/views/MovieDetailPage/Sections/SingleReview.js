@@ -19,10 +19,13 @@ const SingleReview = (props) => {
   return (
     <div
       style={{
-        backgroundColor: "#cdcdd4",
+        backgroundColor: "#edf0f1",
         borderRadius: "10px",
         padding: "7px",
-        margin: "5px",
+        margin: "auto",
+        width: "80%",
+        marginBottom: "5px",
+        fontSize: "20px",
       }}
     >
       <div
@@ -32,19 +35,29 @@ const SingleReview = (props) => {
           alignItems: "center",
         }}
       >
-        <BsPerson />
-        <div style={{ marginLeft: "3px" }}>
+        {User.image ? (
+          <img src={User.image} style={{ borderRadius: "50%" }} />
+        ) : (
+          <BsPerson />
+        )}
+        <div
+          style={{
+            marginLeft: "3px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           {User.name ? User.name : props.userFrom}
+          <div style={{ fontSize: "14px" }}>{props.review}</div>
         </div>
       </div>
-      <hr style={{ color: "white" }} />
-      <div>{props.review}</div>
       <div
         style={{
           width: "100%",
           display: "flex",
           flexDirection: "row",
           justifyContent: "flex-end",
+          fontSize: "14px",
         }}
       >
         <div

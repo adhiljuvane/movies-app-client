@@ -30,7 +30,14 @@ function MovieDetailPage(props) {
       });
   }, []);
   return (
-    <div style={{ width: "100%", margin: 0, scrollbarWidth: "none" }}>
+    <div
+      style={{
+        width: "100%",
+        margin: 0,
+        scrollbarWidth: "none",
+        backgroundColor: "#24252A",
+      }}
+    >
       {Movie && (
         <MainImage
           image={`${IMAGE_URL}w1280${Movie.backdrop_path}`}
@@ -49,9 +56,12 @@ function MovieDetailPage(props) {
           display: "flex",
           flexDirection: "column",
           paddingLeft: "1rem",
+          color: "white",
         }}
       >
-        <h1>{Movie && Movie.original_title}</h1>
+        <h1 style={{ margin: "0px", color: "white" }}>
+          {Movie && Movie.original_title}
+        </h1>
         <div>{Movie && Movie.tagline}</div>
         <div>
           Rating :{" "}
@@ -62,17 +72,33 @@ function MovieDetailPage(props) {
         <div>Rated By : {Movie && Movie.vote_count} people</div>
         <div>Relaese Date : {Movie && Movie.release_date}</div>
         <div>Movie Runtime : {Movie && Movie.runtime} Min</div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
           Genres :{" "}
           {Movie.genres &&
             Movie.genres.map((genre, index) => (
               <div key={index} style={{ marginRight: "5px" }}>
-                {genre.name}
+                <div
+                  className="sign-in-button"
+                  style={{
+                    fontSize: "10px",
+                    backgroundColor: "#edf0f1",
+                    color: "rgb(0, 136, 169, 1)",
+                    padding: "4px 10px",
+                  }}
+                >
+                  {genre.name}
+                </div>
               </div>
             ))}
         </div>
       </div>
-      <Title style={{ marginLeft: "1rem" }}>Cast</Title>
+      <Title style={{ marginLeft: "1rem", color: "white" }}>Cast</Title>
       <Row gutter={[16, 6]} style={{ margin: "-3px 3px" }}>
         {Cast &&
           Cast.map((cast, index) =>
@@ -88,7 +114,7 @@ function MovieDetailPage(props) {
             ) : null
           )}
       </Row>
-      <Title style={{ margin: "1rem" }}>Reviews</Title>
+      <Title style={{ margin: "1rem", color: "white" }}>Reviews</Title>
       <WriteReview
         userFrom={localStorage.getItem("userId")}
         movieId={movieId}

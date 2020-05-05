@@ -17,7 +17,14 @@ export const Reviews = (props) => {
     });
   }, []);
   return (
-    <div style={{ display: "flex", flexDirection: "column", margin: "1rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        margin: "1rem",
+        marginBottom: "0px",
+      }}
+    >
       {Reviews.map((review) => {
         return (
           <SingleReview review={review.review} userFrom={review.userFrom} />
