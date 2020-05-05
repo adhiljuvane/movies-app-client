@@ -62,8 +62,15 @@ function FavouritePage() {
   };
 
   return (
-    <div style={{ width: "85%", margin: "3rem auto" }}>
-      <h2>My Favourites</h2>
+    <div
+      style={{
+        width: "100%",
+        height: "calc(100vh-80px)",
+        padding: "80px",
+        backgroundColor: "#edf0f1;",
+      }}
+    >
+      <h1 style={{ color: "#24252A" }}>My Favourites</h1>
       <Table dataSource={favouriteMovies} columns={columns} />;
     </div>
   );
