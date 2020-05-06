@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Tabs } from "antd";
 import Users from "./Sections/Users";
 import FriendRequests from "./Sections/FriendRequests";
+import Friends from "./Sections/Friends";
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
@@ -31,7 +32,7 @@ const FriendsPage = () => {
         <Users />
       </TabPane>
       <TabPane tab="Friends" key="2">
-        Content of Tab Pane 2
+        <Friends />
       </TabPane>
       <TabPane tab="Friend Requests" key="3">
         <FriendRequests />
