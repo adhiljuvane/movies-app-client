@@ -5,7 +5,6 @@ var _ = require("lodash");
 
 const FriendRequests = (props) => {
   const [Users, setUsers] = useState([]);
-  const [Requests, setRequests] = useState([]);
 
   useEffect(() => {
     const data = {
@@ -16,14 +15,12 @@ const FriendRequests = (props) => {
     axios.post("/api/users/user", data).then((response) => {
       if (response.data.user.friendRequests) {
         response.data.user.friendRequests.forEach((request) => {
-          console.log("req", request);
           const reqData = {
             id: request.requestFrom,
           };
           axios.post("/api/users/user", reqData).then((response) => {
             if (response.data.user) {
               users = _.concat(users, response.data.user);
-              console.log("users", users);
               setUsers(users);
             }
           });
@@ -32,21 +29,18 @@ const FriendRequests = (props) => {
     });
   }, []);
 
-  // const getRequestUsers = () => {
-  //   console.log("here");
-  //   Requests.forEach((request) => {
-  //     const data = {
-  //       id: request.requestFrom,
-  //     };
-  //     axios.post("/api/users/user", data).then((response) => {
-  //       if (response.user) {
-  //         let users = Users;
-  //         users = [...users, response.user];
-  //         setUsers(users);
-  //       }
-  //     });
-  //   });
-  // };
+  const acceptRequest = (user) => {
+    console.log("acceptRequest of", user._id);
+    const requestData = {
+      userFrom: localStorage.getItem("userId"),
+      userTo: user._id,
+    };
+    axios.post("/api/users/acceptRequest", requestData).then((response) => {
+      if (response.data.doc) {
+        alert("Friend Request Accepted");
+      }
+    });
+  };
 
   return (
     <div
@@ -100,7 +94,12 @@ const FriendRequests = (props) => {
                   alignItems: "center",
                 }}
               >
-                <div className="sign-in-button">Accept</div>
+                <div
+                  className="sign-in-button"
+                  onClick={() => acceptRequest(user)}
+                >
+                  Accept
+                </div>
                 <div className="sign-in-button">Reject</div>
               </div>
             </div>
