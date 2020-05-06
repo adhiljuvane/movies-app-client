@@ -32,6 +32,9 @@ const FriendsPage = () => {
       <TabPane tab="Friends" key="2">
         Content of Tab Pane 2
       </TabPane>
+      <TabPane tab="Friend Requests" key="3">
+        Content of Tab Pane 2
+      </TabPane>
     </Tabs>
   );
 };

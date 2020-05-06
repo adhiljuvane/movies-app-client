@@ -15,6 +15,22 @@ const Users = (props) => {
       }
     });
   }, []);
+
+  const sendRequest = (user) => {
+    const requestData = {
+      userFrom: localStorage.getItem("userId"),
+      userTo: user._id,
+      time: Date.now(),
+    };
+    axios.post("/api/users/sendRequest", requestData).then((response) => {
+      if (response.data.doc) {
+        alert("Friend Request Sent");
+      }
+    });
+  };
+
+  const cancelRequest = () => {};
+
   return (
     <div
       style={{
@@ -55,7 +71,8 @@ const Users = (props) => {
                   <BsPerson />
                 )}
                 <div style={{ marginInline: "5px" }}>
-                  {user.name ? user.name : props.userFrom}
+                  <div>{user.name ? user.name : props.userFrom}</div>
+                  <div>{user.email ? user.email : props.userFrom}</div>
                 </div>
               </div>
               <div
@@ -66,8 +83,15 @@ const Users = (props) => {
                   alignItems: "center",
                 }}
               >
-                <div className="sign-in-button">Send Request</div>
-                <div className="sign-in-button">Cancel Request </div>
+                <div
+                  className="sign-in-button"
+                  onClick={() => sendRequest(user)}
+                >
+                  Send Request
+                </div>
+                <div className="sign-in-button" onClick={cancelRequest}>
+                  Cancel Request
+                </div>
               </div>
             </div>
           );
