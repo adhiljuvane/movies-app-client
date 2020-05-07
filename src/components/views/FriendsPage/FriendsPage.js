@@ -18,20 +18,28 @@ const FriendsPage = () => {
   const [AllUsers, setAllUsers] = useState([]);
   const [FriendsUsers, setFriendsUsers] = useState([]);
   const [FriendRequestsUsers, setFriendRequests] = useState([]);
+  const [RemainingUsers, setRemainingUsers] = useState([]);
 
   useEffect(() => {
     axios
       .all([getAllUsers(), getFriends(), getRequests()])
       .then(
         axios.spread((...responses) => {
-          // console.log("all", AllUsers, responses[0]);
-          // console.log("friends", FriendsUsers, responses[1]);
-          // console.log("requests", FriendRequestsUsers, responses[2]);
+          console.log("all", AllUsers, responses[0]);
+          console.log("friends", FriendsUsers, responses[1]);
+          console.log("requests", FriendRequestsUsers, responses[2]);
         })
       )
       .catch((errors) => {
         console.log("err", errors.message);
       });
+
+    var allUsers = AllUsers;
+    allUsers = _.differenceWith(allUsers, FriendsUsers, _.isEqual);
+    console.log("after friends", allUsers);
+    allUsers = _.differenceWith(allUsers, FriendRequestsUsers, _.isEqual);
+    console.log("after requets", allUsers);
+    setRemainingUsers(allUsers);
   }, [AllUsers.length, FriendsUsers.length, FriendRequestsUsers.length]);
 
   const getAllUsers = () => {
@@ -111,7 +119,7 @@ const FriendsPage = () => {
       }}
     >
       <TabPane tab="All Users" key="1">
-        <Users users={AllUsers} />
+        <Users users={RemainingUsers} />
       </TabPane>
       <TabPane tab="Friends" key="2">
         <Friends users={FriendsUsers} />
