@@ -9,15 +9,8 @@ const Users = (props) => {
   const [Users, setUsers] = useState([]);
 
   useEffect(() => {
-    const data = {
-      id: localStorage.getItem("userId"),
-    };
-    axios.post("/api/users/getAll", data).then((response) => {
-      if (response.data.users) {
-        setUsers(response.data.users);
-      }
-    });
-  }, []);
+    setUsers(props.users);
+  }, [props.users.length]);
 
   const sendRequest = (user) => {
     const requestData = {

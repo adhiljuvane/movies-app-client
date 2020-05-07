@@ -8,27 +8,8 @@ const FriendRequests = (props) => {
   const [Users, setUsers] = useState([]);
 
   useEffect(() => {
-    const data = {
-      id: localStorage.getItem("userId"),
-    };
-    var users = [];
-
-    axios.post("/api/users/user", data).then((response) => {
-      if (response.data.user.friendRequests) {
-        response.data.user.friendRequests.forEach((request) => {
-          const reqData = {
-            id: request.requestFrom,
-          };
-          axios.post("/api/users/user", reqData).then((response) => {
-            if (response.data.user) {
-              users = _.concat(users, response.data.user);
-              setUsers(users);
-            }
-          });
-        });
-      }
-    });
-  }, []);
+    setUsers(props.users);
+  }, [props.users.length]);
 
   const acceptRequest = (user) => {
     console.log("acceptRequest of", user._id);
