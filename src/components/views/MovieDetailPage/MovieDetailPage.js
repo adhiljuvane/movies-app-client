@@ -99,7 +99,7 @@ function MovieDetailPage(props) {
         </div>
       </div>
       <Title style={{ marginLeft: "1rem", color: "white" }}>Cast</Title>
-      <Row gutter={[16, 6]} style={{ margin: "-3px 3px" }}>
+      <Row gutter={[16, 6]} style={{ margin: "-10px", padding: "1rem" }}>
         {Cast &&
           Cast.map((cast, index) =>
             index < 15 ? (

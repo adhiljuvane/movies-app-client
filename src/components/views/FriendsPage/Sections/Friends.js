@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
+import { Empty } from "antd";
+
 var _ = require("lodash");
 
 const Friends = (props) => {
@@ -39,7 +41,7 @@ const Friends = (props) => {
         alignItems: "center",
       }}
     >
-      {Users &&
+      {_.head(Users) !== undefined ? (
         Users.map((user) => {
           return (
             <div
@@ -69,7 +71,10 @@ const Friends = (props) => {
                   <BsPerson />
                 )}
                 <div style={{ marginInline: "5px" }}>
-                  <div>{user.name ? user.name : props.userFrom}</div>
+                  <div>
+                    {user.name ? user.name : props.userFrom}{" "}
+                    {user.lastname ? user.lastname : props.userFrom}
+                  </div>
                   <div>{user.email ? user.email : props.userFrom}</div>
                 </div>
               </div>
@@ -81,12 +86,18 @@ const Friends = (props) => {
                   alignItems: "center",
                 }}
               >
-                <div className="sign-in-button">View</div>
-                <div className="sign-in-button">Reject</div>
+                <div className="sign-in-button">View Profile</div>
+                <div className="sign-in-button">UnFriend</div>
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          style={{ color: "white" }}
+        />
+      )}
     </div>
   );
 };
