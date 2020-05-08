@@ -10,6 +10,7 @@ import Footer from "./views/Footer/Footer";
 import MovieDetailPage from "./views/MovieDetailPage/MovieDetailPage";
 import FavouritePage from "./views/FavouritePage/FavouritePage";
 import FriendsPage from "./views/FriendsPage/FriendsPage";
+import PublicProfile from "./views/PublicProfile/PublicProfile";
 
 function App() {
   return (
@@ -35,6 +36,11 @@ function App() {
             component={Auth(FavouritePage, null)}
           />
           <Route exact path="/friends" component={Auth(FriendsPage, null)} />
+          <Route
+            exact
+            path="/profile/:id"
+            component={Auth(PublicProfile, null)}
+          />
         </Switch>
       </div>
       <Footer />

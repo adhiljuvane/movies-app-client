@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
 import { Empty, message } from "antd";
+import { Link } from "react-router-dom";
 
 var _ = require("lodash");
 
@@ -12,7 +13,7 @@ const Friends = (props) => {
     setUsers(props.users);
   }, [props.users.length]);
 
-  const viewProfile = () => {};
+  // const viewProfile = (user) => {};
 
   const unFriend = (user) => {
     const data = {
@@ -81,9 +82,9 @@ const Friends = (props) => {
                   alignItems: "center",
                 }}
               >
-                <div className="sign-in-button" onClick={viewProfile}>
-                  View Profile
-                </div>
+                <Link to={`/profile/${user._id}`}>
+                  <div className="sign-in-button">View Profile</div>
+                </Link>
                 <div className="sign-in-button" onClick={() => unFriend(user)}>
                   UnFriend
                 </div>
