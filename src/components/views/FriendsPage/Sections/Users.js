@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
-import { Empty } from "antd";
+import { Empty, message } from "antd";
 
 var _ = require("lodash");
 
@@ -20,12 +20,10 @@ const Users = (props) => {
     };
     axios.post("/api/users/sendRequest", requestData).then((response) => {
       if (response.data.doc) {
-        alert("Friend Request Sent");
+        message.success("Friend Request Sent");
       }
     });
   };
-
-  const cancelRequest = () => {};
 
   return (
     <div
@@ -87,9 +85,6 @@ const Users = (props) => {
                   onClick={() => sendRequest(user)}
                 >
                   Send Request
-                </div>
-                <div className="sign-in-button" onClick={cancelRequest}>
-                  Cancel Request
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
-import { Empty } from "antd";
+import { Empty, message } from "antd";
 
 var _ = require("lodash");
 
@@ -11,6 +11,20 @@ const Friends = (props) => {
   useEffect(() => {
     setUsers(props.users);
   }, [props.users.length]);
+
+  const viewProfile = () => {};
+
+  const unFriend = (user) => {
+    const data = {
+      userFrom: localStorage.getItem("userId"),
+      userTo: user._id,
+    };
+    axios.post("/api/users/unFriend", data).then((response) => {
+      if (response.data.user) {
+        message.success("User Unfriended");
+      }
+    });
+  };
 
   return (
     <div
@@ -67,8 +81,12 @@ const Friends = (props) => {
                   alignItems: "center",
                 }}
               >
-                <div className="sign-in-button">View Profile</div>
-                <div className="sign-in-button">UnFriend</div>
+                <div className="sign-in-button" onClick={viewProfile}>
+                  View Profile
+                </div>
+                <div className="sign-in-button" onClick={() => unFriend(user)}>
+                  UnFriend
+                </div>
               </div>
             </div>
           );

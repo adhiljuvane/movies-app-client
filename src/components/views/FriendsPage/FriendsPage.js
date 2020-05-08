@@ -21,19 +21,10 @@ const FriendsPage = () => {
   const [RemainingUsers, setRemainingUsers] = useState([]);
 
   useEffect(() => {
-    axios
-      .all([getAllUsers(), getFriends(), getRequests()])
-      .then(
-        axios.spread((...responses) => {
-          console.log("all", AllUsers, responses[0]);
-          console.log("friends", FriendsUsers, responses[1]);
-          console.log("requests", FriendRequestsUsers, responses[2]);
-        })
-      )
-      .catch((errors) => {
-        console.log("err", errors.message);
-      });
+    getAllUsers().then(getFriends().then(getRequests()));
+  }, []);
 
+  useEffect(() => {
     var allUsers = AllUsers;
     allUsers = _.differenceWith(allUsers, FriendsUsers, _.isEqual);
     console.log("after friends", allUsers);
@@ -42,11 +33,11 @@ const FriendsPage = () => {
     setRemainingUsers(allUsers);
   }, [AllUsers.length, FriendsUsers.length, FriendRequestsUsers.length]);
 
-  const getAllUsers = () => {
+  const getAllUsers = async () => {
     const data = {
       id: localStorage.getItem("userId"),
     };
-    axios.post("/api/users/getAll", data).then((response) => {
+    await axios.post("/api/users/getAll", data).then((response) => {
       if (response.data.users) {
         setAllUsers(response.data.users);
         // console.log("all", AllUsers, response.data.users);
@@ -54,13 +45,13 @@ const FriendsPage = () => {
     });
   };
 
-  const getFriends = () => {
+  const getFriends = async () => {
     const data = {
       id: localStorage.getItem("userId"),
     };
     var users = [];
 
-    axios.post("/api/users/user", data).then((response) => {
+    await axios.post("/api/users/user", data).then((response) => {
       if (response.data.user.friends) {
         response.data.user.friends.forEach((request) => {
           const reqData = {
@@ -78,13 +69,13 @@ const FriendsPage = () => {
     });
   };
 
-  const getRequests = () => {
+  const getRequests = async () => {
     const data = {
       id: localStorage.getItem("userId"),
     };
     var users = [];
 
-    axios.post("/api/users/user", data).then((response) => {
+    await axios.post("/api/users/user", data).then((response) => {
       if (response.data.user.friendRequests) {
         response.data.user.friendRequests.forEach((request) => {
           const reqData = {
