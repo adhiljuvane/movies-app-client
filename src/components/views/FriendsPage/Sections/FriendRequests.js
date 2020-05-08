@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
-import { Empty } from "antd";
+import { Empty, message } from "antd";
 var _ = require("lodash");
 
 const FriendRequests = (props) => {
@@ -12,14 +12,26 @@ const FriendRequests = (props) => {
   }, [props.users.length]);
 
   const acceptRequest = (user) => {
-    console.log("acceptRequest of", user._id);
+    // console.log("acceptRequest of", user._id);
     const requestData = {
       userFrom: localStorage.getItem("userId"),
       userTo: user._id,
     };
     axios.post("/api/users/acceptRequest", requestData).then((response) => {
       if (response.data.doc) {
-        alert("Friend Request Accepted");
+        message.success("Friend Request Accepted");
+      }
+    });
+  };
+
+  const rejectRequest = (user) => {
+    const requestData = {
+      userFrom: localStorage.getItem("userId"),
+      userTo: user._id,
+    };
+    axios.post("/api/users/rejectRequest", requestData).then((response) => {
+      if (response.data.doc) {
+        message.success("Friend Request Rejected");
       }
     });
   };
@@ -85,7 +97,12 @@ const FriendRequests = (props) => {
                 >
                   Accept Request
                 </div>
-                <div className="sign-in-button">Reject Request</div>
+                <div
+                  className="sign-in-button"
+                  onClick={() => rejectRequest(user)}
+                >
+                  Reject Request
+                </div>
               </div>
             </div>
           );
