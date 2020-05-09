@@ -55,7 +55,7 @@ const FriendsPage = () => {
       if (response.data.user.friends) {
         response.data.user.friends.forEach((request) => {
           const reqData = {
-            id: request.requestFrom,
+            id: request.user,
           };
           axios.post("/api/users/user", reqData).then((response) => {
             if (response.data.user) {
@@ -79,13 +79,13 @@ const FriendsPage = () => {
       if (response.data.user.friendRequests) {
         response.data.user.friendRequests.forEach((request) => {
           const reqData = {
-            id: request.requestFrom,
+            id: request.user,
           };
           axios.post("/api/users/user", reqData).then((response) => {
             if (response.data.user) {
               users = _.concat(users, response.data.user);
               setFriendRequests(users);
-              // console.log("requestss", FriendRequestsUsers, users);
+              console.log("requestss", FriendRequestsUsers, users);
             }
           });
         });

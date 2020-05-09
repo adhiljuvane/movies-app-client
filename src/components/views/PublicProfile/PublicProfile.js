@@ -50,7 +50,7 @@ function PublicProfile(props) {
     console.log("fr", user.friends);
     user.friends.forEach(async (item) => {
       const data = {
-        id: item.requestFrom,
+        id: item.user,
       };
       await axios.post("/api/users/user", data).then((response) => {
         if (response.data.user) {
