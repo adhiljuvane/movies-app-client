@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Popconfirm } from "antd";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function FavouritePage() {
   const [favouriteMovies, setfavouriteMovies] = useState([]);
@@ -10,6 +11,9 @@ function FavouritePage() {
       title: "Movie Title",
       dataIndex: "movieTitle",
       key: "movieTitle",
+      render: (text, record) => (
+        <Link to={`/movie/${record.movieId}`}>{text}</Link>
+      ),
     },
     {
       title: "Movie RunTime",
@@ -71,7 +75,7 @@ function FavouritePage() {
       }}
     >
       <h1 style={{ color: "#24252A" }}>My Favourites</h1>
-      <Table dataSource={favouriteMovies} columns={columns} />;
+      <Table dataSource={favouriteMovies} columns={columns} />
     </div>
   );
 }

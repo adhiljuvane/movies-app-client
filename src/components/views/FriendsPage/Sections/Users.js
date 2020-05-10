@@ -21,6 +21,8 @@ const Users = (props) => {
     axios.post("/api/users/sendRequest", requestData).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         message.success("Friend Request Sent");
+        props.getPendingRequests();
+        props.getAllUsers();
       }
     });
   };

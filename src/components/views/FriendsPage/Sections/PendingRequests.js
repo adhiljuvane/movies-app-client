@@ -20,6 +20,7 @@ const PendingRequests = (props) => {
     axios.post("/api/users/cancelRequest", requestData).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         message.success("Friend Request Cancelled");
+        window.location.reload();
       }
     });
   };

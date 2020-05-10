@@ -23,6 +23,7 @@ const Friends = (props) => {
     axios.post("/api/users/unFriend", data).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         message.success("User Unfriended");
+        window.location.reload();
       }
     });
   };

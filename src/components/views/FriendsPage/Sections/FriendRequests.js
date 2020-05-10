@@ -18,8 +18,9 @@ const FriendRequests = (props) => {
       userTo: user._id,
     };
     axios.post("/api/users/acceptRequest", requestData).then((response) => {
-      if (response.data.doc) {
+      if (response.data.doc1 && response.data.doc2) {
         message.success("Friend Request Accepted");
+        props.getRequests();
       }
     });
   };
@@ -30,8 +31,9 @@ const FriendRequests = (props) => {
       userTo: user._id,
     };
     axios.post("/api/users/rejectRequest", requestData).then((response) => {
-      if (response.data.doc) {
+      if (response.data.doc1 && response.data.doc2) {
         message.success("Friend Request Rejected");
+        window.location.reload();
       }
     });
   };

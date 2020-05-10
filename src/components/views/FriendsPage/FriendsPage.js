@@ -12,7 +12,7 @@ const { Title } = Typography;
 const { TabPane } = Tabs;
 
 function callback(key) {
-  console.log(key);
+  // console.log(key);
 }
 
 const FriendsPage = () => {
@@ -31,11 +31,11 @@ const FriendsPage = () => {
   useEffect(() => {
     var allUsers = AllUsers;
     allUsers = _.differenceWith(allUsers, FriendsUsers, _.isEqual);
-    console.log("after friends", allUsers);
+    // console.log("after friends", allUsers);
     allUsers = _.differenceWith(allUsers, FriendRequestsUsers, _.isEqual);
-    console.log("after requets", allUsers);
+    // console.log("after requets", allUsers);
     allUsers = _.differenceWith(allUsers, PendingUsers, _.isEqual); //try disabling the button instead of this
-    console.log("after pending", allUsers);
+    // console.log("after pending", allUsers);
     setRemainingUsers(allUsers);
   }, [
     AllUsers.length,
@@ -145,7 +145,11 @@ const FriendsPage = () => {
       }}
     >
       <TabPane tab="All Users" key="1">
-        <Users users={RemainingUsers} />
+        <Users
+          users={RemainingUsers}
+          getPendingRequests={() => getPendingRequests()}
+          getAllUsers={() => getAllUsers()}
+        />
       </TabPane>
       <TabPane tab="Friends" key="2">
         <Friends users={FriendsUsers} />
