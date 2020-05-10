@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "antd";
+import { Input, message } from "antd";
 import axios from "axios";
 const { TextArea } = Input;
 
@@ -17,12 +17,13 @@ const WriteReview = (props) => {
     };
     axios.post("/api/reviews/write", data).then((response) => {
       if (response.data.success) {
-        alert("Review submitted");
+        message.success("Review submitted");
       } else {
-        alert("Review error");
+        message.error("Review error");
       }
     });
     setReview("");
+    props.callback();
   };
 
   const handleChange = (e) => {

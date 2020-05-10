@@ -14,6 +14,13 @@ function MovieDetailPage(props) {
 
   const [Movie, setMovie] = useState([]);
   const [Cast, setCast] = useState([]);
+  const [Reload, setReload] = useState(false);
+
+  const callback = () => {
+    console.log("callback happening");
+    setReload(!Reload);
+  };
+
   useEffect(() => {
     fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`)
       .then((response) => response.json())
@@ -29,6 +36,7 @@ function MovieDetailPage(props) {
           });
       });
   }, []);
+
   return (
     <div
       style={{
@@ -99,7 +107,7 @@ function MovieDetailPage(props) {
         </div>
       </div>
       <Title style={{ marginLeft: "1rem", color: "white" }}>Cast</Title>
-      <Row gutter={[16, 6]} style={{ margin: "-10px", padding: "1rem" }}>
+      <Row gutter={[16, 6]} style={{ margin: "0px", padding: "1rem" }}>
         {Cast &&
           Cast.map((cast, index) =>
             index < 15 ? (
@@ -118,8 +126,11 @@ function MovieDetailPage(props) {
       <WriteReview
         userFrom={localStorage.getItem("userId")}
         movieId={movieId}
+        callback={() => {
+          callback();
+        }}
       />
-      <Reviews movieId={movieId} />
+      <Reviews movieId={movieId} reload={Reload} />
     </div>
   );
 }

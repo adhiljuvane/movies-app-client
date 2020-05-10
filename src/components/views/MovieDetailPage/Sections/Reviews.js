@@ -15,7 +15,7 @@ export const Reviews = (props) => {
         alert("Cannot get reviews");
       }
     });
-  }, []);
+  }, [props.reload]);
   return (
     <div
       style={{
