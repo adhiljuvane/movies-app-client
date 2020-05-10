@@ -2,27 +2,24 @@ import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
 import { Empty, message } from "antd";
-import { Link } from "react-router-dom";
-
 var _ = require("lodash");
 
-const Friends = (props) => {
+const PendingRequests = (props) => {
   const [Users, setUsers] = useState([]);
 
   useEffect(() => {
     setUsers(props.users);
   }, [props.users.length]);
 
-  // const viewProfile = (user) => {};
-
-  const unFriend = (user) => {
-    const data = {
+  const cancelRequest = (user) => {
+    // console.log("acceptRequest of", user._id);
+    const requestData = {
       userFrom: localStorage.getItem("userId"),
       userTo: user._id,
     };
-    axios.post("/api/users/unFriend", data).then((response) => {
+    axios.post("/api/users/cancelRequest", requestData).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
-        message.success("User Unfriended");
+        message.success("Friend Request Cancelled");
       }
     });
   };
@@ -82,11 +79,11 @@ const Friends = (props) => {
                   alignItems: "center",
                 }}
               >
-                <Link to={`/profile/${user._id}`}>
-                  <div className="sign-in-button">View Profile</div>
-                </Link>
-                <div className="sign-in-button" onClick={() => unFriend(user)}>
-                  UnFriend
+                <div
+                  className="sign-in-button"
+                  onClick={() => cancelRequest(user)}
+                >
+                  Cancel Request
                 </div>
               </div>
             </div>
@@ -102,4 +99,4 @@ const Friends = (props) => {
   );
 };
 
-export default Friends;
+export default PendingRequests;

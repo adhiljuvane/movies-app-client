@@ -19,7 +19,7 @@ const Users = (props) => {
       time: Date.now(),
     };
     axios.post("/api/users/sendRequest", requestData).then((response) => {
-      if (response.data.doc) {
+      if (response.data.doc1 && response.data.doc2) {
         message.success("Friend Request Sent");
       }
     });

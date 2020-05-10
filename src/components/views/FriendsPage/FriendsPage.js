@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Typography, Tabs } from "antd";
 import Users from "./Sections/Users";
 import FriendRequests from "./Sections/FriendRequests";
+import PendingRequests from "./Sections/PendingRequests";
 import Friends from "./Sections/Friends";
 import axios from "axios";
 
@@ -18,10 +19,13 @@ const FriendsPage = () => {
   const [AllUsers, setAllUsers] = useState([]);
   const [FriendsUsers, setFriendsUsers] = useState([]);
   const [FriendRequestsUsers, setFriendRequests] = useState([]);
+  const [PendingUsers, setPendingUsers] = useState([]);
   const [RemainingUsers, setRemainingUsers] = useState([]);
 
   useEffect(() => {
-    getAllUsers().then(getFriends().then(getRequests()));
+    getAllUsers().then(
+      getFriends().then(getRequests().then(getPendingRequests()))
+    );
   }, []);
 
   useEffect(() => {
@@ -30,8 +34,15 @@ const FriendsPage = () => {
     console.log("after friends", allUsers);
     allUsers = _.differenceWith(allUsers, FriendRequestsUsers, _.isEqual);
     console.log("after requets", allUsers);
+    allUsers = _.differenceWith(allUsers, PendingUsers, _.isEqual); //try disabling the button instead of this
+    console.log("after pending", allUsers);
     setRemainingUsers(allUsers);
-  }, [AllUsers.length, FriendsUsers.length, FriendRequestsUsers.length]);
+  }, [
+    AllUsers.length,
+    FriendsUsers.length,
+    FriendRequestsUsers.length,
+    PendingUsers.length,
+  ]);
 
   const getAllUsers = async () => {
     const data = {
@@ -85,7 +96,31 @@ const FriendsPage = () => {
             if (response.data.user) {
               users = _.concat(users, response.data.user);
               setFriendRequests(users);
-              console.log("requestss", FriendRequestsUsers, users);
+              // console.log("requestss", FriendRequestsUsers, users);
+            }
+          });
+        });
+      }
+    });
+  };
+
+  const getPendingRequests = async () => {
+    const data = {
+      id: localStorage.getItem("userId"),
+    };
+    var users = [];
+
+    await axios.post("/api/users/user", data).then((response) => {
+      if (response.data.user.pendingRequests) {
+        response.data.user.pendingRequests.forEach((request) => {
+          const reqData = {
+            id: request.user,
+          };
+          axios.post("/api/users/user", reqData).then((response) => {
+            if (response.data.user) {
+              users = _.concat(users, response.data.user);
+              setPendingUsers(users);
+              // console.log("requestggss", PendingUsers, users);
             }
           });
         });
@@ -117,6 +152,9 @@ const FriendsPage = () => {
       </TabPane>
       <TabPane tab="Friend Requests" key="3">
         <FriendRequests users={FriendRequestsUsers} />
+      </TabPane>
+      <TabPane tab="Pending Requests" key="4">
+        <PendingRequests users={PendingUsers} />
       </TabPane>
     </Tabs>
   );
