@@ -6,17 +6,35 @@ import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 
 const SingleReview = (props) => {
   const [User, setUser] = useState([]);
+  const [Liked, setLiked] = useState(false);
+  const [Disliked, setDisliked] = useState(false);
 
   useEffect(() => {
     const data = {
       id: props.userFrom,
     };
+
     axios.post("/api/users/user", data).then((response) => {
       if (response.data.user) {
         setUser(response.data.user);
       }
     });
-  }, []);
+
+    const reviewData = {
+      userFrom: localStorage.getItem("userId"),
+      movieId: props.movieId,
+      reviewId: props.reviewId,
+    };
+
+    axios.post("/api/reviews/getLiked", reviewData).then((response) => {
+      if (response.data.liked) {
+        setLiked(true);
+      }
+      if (response.data.disliked) {
+        setDisliked(true);
+      }
+    });
+  }, [Liked, Disliked]);
 
   const liked = () => {
     const data = {
@@ -27,6 +45,7 @@ const SingleReview = (props) => {
 
     axios.post("/api/reviews/likeOne", data).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
+        setLiked(true);
         message.success("Review Liked");
       }
     });
@@ -41,6 +60,7 @@ const SingleReview = (props) => {
 
     axios.post("/api/reviews/dislikeOne", data).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
+        setDisliked(true);
         message.success("Review Disliked");
       }
     });
@@ -100,7 +120,19 @@ const SingleReview = (props) => {
           }}
         >
           <div>{props.review.likedBy && props.review.likedBy.length}</div>
-          <FaRegThumbsUp style={{ marginRight: "25px" }} onClick={liked} />
+          {console.log("like", Liked, Disliked)}
+          {Liked && (
+            <FaRegThumbsUp
+              style={{ marginRight: "25px" }}
+              style={{ color: "blue" }}
+            />
+          )}
+          {!Liked && !Disliked && (
+            <FaRegThumbsUp style={{ marginRight: "25px" }} onClick={liked} />
+          )}
+          {!Liked && Disliked && (
+            <FaRegThumbsUp style={{ marginRight: "25px" }} />
+          )}
         </div>
         <div
           style={{
@@ -112,7 +144,21 @@ const SingleReview = (props) => {
           }}
         >
           <div>{props.review.dislikedBy && props.review.dislikedBy.length}</div>
-          <FaRegThumbsDown style={{ marginRight: "25px" }} onClick={disliked} />
+          {Disliked && (
+            <FaRegThumbsDown
+              style={{ marginRight: "25px" }}
+              style={{ color: "red" }}
+            />
+          )}
+          {!Disliked && !Liked && (
+            <FaRegThumbsDown
+              style={{ marginRight: "25px" }}
+              onClick={disliked}
+            />
+          )}
+          {!Disliked && Liked && (
+            <FaRegThumbsDown style={{ marginRight: "25px" }} />
+          )}
         </div>
       </div>
     </div>
