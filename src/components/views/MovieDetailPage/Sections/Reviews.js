@@ -4,10 +4,12 @@ import axios from "axios";
 
 export const Reviews = (props) => {
   const [Reviews, setReviews] = useState([]);
+
   useEffect(() => {
     const data = {
       movieId: props.movieId,
     };
+
     axios.post("/api/reviews/getAll", data).then((response) => {
       if (response.data.reviews) {
         setReviews(response.data.reviews);
@@ -16,6 +18,7 @@ export const Reviews = (props) => {
       }
     });
   }, [props.reload]);
+
   return (
     <div
       style={{
@@ -27,7 +30,12 @@ export const Reviews = (props) => {
     >
       {Reviews.map((review) => {
         return (
-          <SingleReview review={review.review} userFrom={review.userFrom} />
+          <SingleReview
+            review={review}
+            userFrom={review.userFrom}
+            movieId={props.movieId}
+            reviewId={review._id}
+          />
         );
       })}
     </div>

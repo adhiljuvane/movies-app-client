@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
+import { message } from "antd";
 import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 
 const SingleReview = (props) => {
@@ -16,6 +17,35 @@ const SingleReview = (props) => {
       }
     });
   }, []);
+
+  const liked = () => {
+    const data = {
+      userFrom: localStorage.getItem("userId"),
+      movieId: props.movieId,
+      likedReview: props.reviewId,
+    };
+
+    axios.post("/api/reviews/likeOne", data).then((response) => {
+      if (response.data.doc1 && response.data.doc2) {
+        message.success("Review Liked");
+      }
+    });
+  };
+
+  const disliked = () => {
+    const data = {
+      userFrom: localStorage.getItem("userId"),
+      movieId: props.movieId,
+      likedReview: props.reviewId,
+    };
+
+    axios.post("/api/reviews/dislikeOne", data).then((response) => {
+      if (response.data.doc1 && response.data.doc2) {
+        message.success("Review Disliked");
+      }
+    });
+  };
+
   return (
     <div
       style={{
@@ -48,7 +78,7 @@ const SingleReview = (props) => {
           }}
         >
           {User.name ? User.name : props.userFrom}
-          <div style={{ fontSize: "14px" }}>{props.review}</div>
+          <div style={{ fontSize: "14px" }}>{props.review.review}</div>
         </div>
       </div>
       <div
@@ -69,8 +99,8 @@ const SingleReview = (props) => {
             justifyContent: "space-evenly",
           }}
         >
-          <div>25</div>
-          <FaRegThumbsUp style={{ marginRight: "25px" }} />
+          <div>{props.review.likedBy && props.review.likedBy.length}</div>
+          <FaRegThumbsUp style={{ marginRight: "25px" }} onClick={liked} />
         </div>
         <div
           style={{
@@ -81,8 +111,8 @@ const SingleReview = (props) => {
             justifyContent: "space-evenly",
           }}
         >
-          <div>25</div>
-          <FaRegThumbsDown style={{ marginRight: "25px" }} />
+          <div>{props.review.dislikedBy && props.review.dislikedBy.length}</div>
+          <FaRegThumbsDown style={{ marginRight: "25px" }} onClick={disliked} />
         </div>
       </div>
     </div>
