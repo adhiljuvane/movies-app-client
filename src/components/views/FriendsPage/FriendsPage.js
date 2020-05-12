@@ -5,6 +5,7 @@ import FriendRequests from "./Sections/FriendRequests";
 import PendingRequests from "./Sections/PendingRequests";
 import Friends from "./Sections/Friends";
 import axios from "axios";
+import { USER_SERVER } from "../../Config";
 
 var _ = require("lodash");
 
@@ -48,7 +49,7 @@ const FriendsPage = () => {
     const data = {
       id: localStorage.getItem("userId"),
     };
-    await axios.post("/api/users/getAll", data).then((response) => {
+    await axios.post(`${USER_SERVER}/getAll`, data).then((response) => {
       if (response.data.users) {
         setAllUsers(response.data.users);
         // console.log("all", AllUsers, response.data.users);
@@ -62,13 +63,13 @@ const FriendsPage = () => {
     };
     var users = [];
 
-    await axios.post("/api/users/user", data).then((response) => {
+    await axios.post(`${USER_SERVER}/user`, data).then((response) => {
       if (response.data.user.friends) {
         response.data.user.friends.forEach((request) => {
           const reqData = {
             id: request.user,
           };
-          axios.post("/api/users/user", reqData).then((response) => {
+          axios.post(`${USER_SERVER}/user`, reqData).then((response) => {
             if (response.data.user) {
               users = _.concat(users, response.data.user);
               setFriendsUsers(users);
@@ -86,13 +87,13 @@ const FriendsPage = () => {
     };
     var users = [];
 
-    await axios.post("/api/users/user", data).then((response) => {
+    await axios.post(`${USER_SERVER}/user`, data).then((response) => {
       if (response.data.user.friendRequests) {
         response.data.user.friendRequests.forEach((request) => {
           const reqData = {
             id: request.user,
           };
-          axios.post("/api/users/user", reqData).then((response) => {
+          axios.post(`${USER_SERVER}/user`, reqData).then((response) => {
             if (response.data.user) {
               users = _.concat(users, response.data.user);
               setFriendRequests(users);
@@ -110,13 +111,13 @@ const FriendsPage = () => {
     };
     var users = [];
 
-    await axios.post("/api/users/user", data).then((response) => {
+    await axios.post(`${USER_SERVER}/user`, data).then((response) => {
       if (response.data.user.pendingRequests) {
         response.data.user.pendingRequests.forEach((request) => {
           const reqData = {
             id: request.user,
           };
-          axios.post("/api/users/user", reqData).then((response) => {
+          axios.post(`${USER_SERVER}/user`, reqData).then((response) => {
             if (response.data.user) {
               users = _.concat(users, response.data.user);
               setPendingUsers(users);

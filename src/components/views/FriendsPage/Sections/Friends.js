@@ -3,6 +3,7 @@ import { BsPerson } from "react-icons/bs";
 import axios from "axios";
 import { Empty, message } from "antd";
 import { Link } from "react-router-dom";
+import { USER_SERVER } from "../../../Config";
 
 var _ = require("lodash");
 
@@ -20,7 +21,7 @@ const Friends = (props) => {
       userFrom: localStorage.getItem("userId"),
       userTo: user._id,
     };
-    axios.post("/api/users/unFriend", data).then((response) => {
+    axios.post(`${USER_SERVER}/unFriend`, data).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         message.success("User Unfriended");
         window.location.reload();

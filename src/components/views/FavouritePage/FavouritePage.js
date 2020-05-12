@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, Popconfirm } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { FAVOURITE_SERVER } from "../../Config";
 
 function FavouritePage() {
   const [favouriteMovies, setfavouriteMovies] = useState([]);
@@ -35,7 +36,7 @@ function FavouritePage() {
 
   const handleDelete = (record) => {
     axios
-      .post("/api/favourite/removeFromFavourite", record)
+      .post(`${FAVOURITE_SERVER}/removeFromFavourite`, record)
       .then((response) => {
         if (response.data.success) {
           fetchFavouriteMovies();
@@ -55,7 +56,7 @@ function FavouritePage() {
 
   const fetchFavouriteMovies = () => {
     axios
-      .post("/api/favourite/getFavouriteMovies", variable)
+      .post(`${FAVOURITE_SERVER}/getFavouriteMovies`, variable)
       .then((response) => {
         if (response.data.success) {
           setfavouriteMovies(response.data.favourites);

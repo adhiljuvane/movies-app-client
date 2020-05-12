@@ -3,6 +3,7 @@ import "./PublicProfile.css";
 import axios from "axios";
 import { message } from "antd";
 import { Link } from "react-router-dom";
+import { USER_SERVER, FAVOURITE_SERVER } from "../../Config";
 var _ = require("lodash");
 
 function PublicProfile(props) {
@@ -18,7 +19,7 @@ function PublicProfile(props) {
     const data = {
       id: props.match.params.id,
     };
-    await axios.post("/api/users/user", data).then((response) => {
+    await axios.post(`${USER_SERVER}/user`, data).then((response) => {
       if (response.data.user) {
         setUser(response.data.user);
         getFriends(response.data.user);
@@ -34,7 +35,7 @@ function PublicProfile(props) {
     };
 
     await axios
-      .post("/api/favourite/getFavouriteMovies", data)
+      .post(`${FAVOURITE_SERVER}/getFavouriteMovies`, data)
       .then((response) => {
         if (response.data.success) {
           setFavourites(response.data.favourites);
@@ -47,17 +48,17 @@ function PublicProfile(props) {
 
   const getFriends = (user) => {
     let friends = [];
-    console.log("fr", user.friends);
+    // console.log("fr", user.friends);
     user.friends.forEach(async (item) => {
       const data = {
         id: item.user,
       };
-      await axios.post("/api/users/user", data).then((response) => {
+      await axios.post(`${USER_SERVER}/user`, data).then((response) => {
         if (response.data.user) {
           friends = _.concat(friends, response.data.user);
         }
       });
-      console.log("frrr", friends);
+      // console.log("frrr", friends);
       setFriends(friends);
     });
   };

@@ -2,6 +2,9 @@ import axios from "axios";
 import { LOGIN_USER, LOGOUT_USER, REGISTER_USER, AUTH_USER } from "./types";
 import { USER_SERVER } from "../components/Config";
 
+// axios.defaults.headers.post["Content-Type"] = "application/json;charset=utf-8";
+// axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+
 export function registerUser(dataToSubmit) {
   const request = axios
     .post(`${USER_SERVER}/register`, dataToSubmit)

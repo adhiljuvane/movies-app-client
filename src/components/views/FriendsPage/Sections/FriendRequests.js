@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
 import { Empty, message } from "antd";
+import { USER_SERVER } from "../../../Config";
 var _ = require("lodash");
 
 const FriendRequests = (props) => {
@@ -17,7 +18,7 @@ const FriendRequests = (props) => {
       userFrom: localStorage.getItem("userId"),
       userTo: user._id,
     };
-    axios.post("/api/users/acceptRequest", requestData).then((response) => {
+    axios.post(`${USER_SERVER}/acceptRequest`, requestData).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         message.success("Friend Request Accepted");
         props.getRequests();
@@ -30,7 +31,7 @@ const FriendRequests = (props) => {
       userFrom: localStorage.getItem("userId"),
       userTo: user._id,
     };
-    axios.post("/api/users/rejectRequest", requestData).then((response) => {
+    axios.post(`${USER_SERVER}/rejectRequest`, requestData).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         message.success("Friend Request Rejected");
         window.location.reload();

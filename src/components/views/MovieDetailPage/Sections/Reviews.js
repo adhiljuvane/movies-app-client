@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SingleReview from "./SingleReview";
 import axios from "axios";
+import { REVIEW_SERVER } from "../../../Config";
 
 export const Reviews = (props) => {
   const [Reviews, setReviews] = useState([]);
@@ -10,7 +11,7 @@ export const Reviews = (props) => {
       movieId: props.movieId,
     };
 
-    axios.post("/api/reviews/getAll", data).then((response) => {
+    axios.post(`${REVIEW_SERVER}/getAll`, data).then((response) => {
       if (response.data.reviews) {
         setReviews(response.data.reviews);
       } else {

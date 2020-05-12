@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
 import { Empty, message } from "antd";
+import { USER_SERVER } from "../../../Config";
 var _ = require("lodash");
 
 const PendingRequests = (props) => {
@@ -18,7 +19,7 @@ const PendingRequests = (props) => {
       userFrom: localStorage.getItem("userId"),
       userTo: user._id,
     };
-    axios.post("/api/users/cancelRequest", requestData).then((response) => {
+    axios.post(`${USER_SERVER}/cancelRequest`, requestData).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         message.success("Friend Request Cancelled");
         // setReload(!Reload);

@@ -3,6 +3,7 @@ import { BsPerson } from "react-icons/bs";
 import axios from "axios";
 import { message } from "antd";
 import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
+import { REVIEW_SERVER, USER_SERVER } from "../../../Config";
 
 const SingleReview = (props) => {
   const [User, setUser] = useState([]);
@@ -14,7 +15,7 @@ const SingleReview = (props) => {
       id: props.userFrom,
     };
 
-    axios.post("/api/users/user", data).then((response) => {
+    axios.post(`${USER_SERVER}/user`, data).then((response) => {
       if (response.data.user) {
         setUser(response.data.user);
       }
@@ -26,7 +27,7 @@ const SingleReview = (props) => {
       reviewId: props.reviewId,
     };
 
-    axios.post("/api/reviews/getLiked", reviewData).then((response) => {
+    axios.post(`${REVIEW_SERVER}/getLiked`, reviewData).then((response) => {
       if (response.data.liked) {
         setLiked(true);
       }
@@ -43,7 +44,7 @@ const SingleReview = (props) => {
       likedReview: props.reviewId,
     };
 
-    axios.post("/api/reviews/likeOne", data).then((response) => {
+    axios.post(`${REVIEW_SERVER}/likeOne`, data).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         setLiked(true);
         message.success("Review Liked");
@@ -58,7 +59,7 @@ const SingleReview = (props) => {
       likedReview: props.reviewId,
     };
 
-    axios.post("/api/reviews/dislikeOne", data).then((response) => {
+    axios.post(`${REVIEW_SERVER}/dislikeOne`, data).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         setDisliked(true);
         message.success("Review Disliked");

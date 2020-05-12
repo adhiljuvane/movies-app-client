@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import axios from "axios";
 import { Empty, message } from "antd";
+import { USER_SERVER } from "../../../Config";
 
 var _ = require("lodash");
 
@@ -18,7 +19,7 @@ const Users = (props) => {
       userTo: user._id,
       time: Date.now(),
     };
-    axios.post("/api/users/sendRequest", requestData).then((response) => {
+    axios.post(`${USER_SERVER}/sendRequest`, requestData).then((response) => {
       if (response.data.doc1 && response.data.doc2) {
         message.success("Friend Request Sent");
         props.getPendingRequests();

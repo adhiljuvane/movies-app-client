@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { AiFillHeart } from "react-icons/ai";
+import { FAVOURITE_SERVER } from "../../../Config";
 
 const Favourite = (props) => {
   const [FavouriteNumber, setFavouriteNumber] = useState(0);
@@ -16,7 +17,7 @@ const Favourite = (props) => {
   const onClickFavourite = () => {
     if (Favourited) {
       axios
-        .post("/api/favourite/removeFromFavourite", variable)
+        .post(`${FAVOURITE_SERVER}/removeFromFavourite`, variable)
         .then((response) => {
           if (response.data.success) {
             setFavouriteNumber(FavouriteNumber - 1);
@@ -26,20 +27,22 @@ const Favourite = (props) => {
           }
         });
     } else {
-      axios.post("/api/favourite/addToFavourite", variable).then((response) => {
-        console.log("response", response.data);
-        if (response.data.success) {
-          setFavouriteNumber(FavouriteNumber + 1);
-          setFavourited(!Favourited);
-        } else {
-          alert("Failed to add to favourites");
-        }
-      });
+      axios
+        .post(`${FAVOURITE_SERVER}/addToFavourite`, variable)
+        .then((response) => {
+          console.log("response", response.data);
+          if (response.data.success) {
+            setFavouriteNumber(FavouriteNumber + 1);
+            setFavourited(!Favourited);
+          } else {
+            alert("Failed to add to favourites");
+          }
+        });
     }
   };
 
   useEffect(() => {
-    axios.post("/api/favourite/favourited", variable).then((response) => {
+    axios.post(`${FAVOURITE_SERVER}/favourited`, variable).then((response) => {
       if (response.data) {
         console.log("data", response.data);
         setFavourited(response.data.favourited);
@@ -48,14 +51,16 @@ const Favourite = (props) => {
       }
     });
 
-    axios.post("/api/favourite/favouriteNumber", variable).then((response) => {
-      console.log("Im here");
-      if (response.data.success) {
-        setFavouriteNumber(response.data.favouriteNumber);
-      } else {
-        alert("Failed to get favourites Number");
-      }
-    });
+    axios
+      .post(`${FAVOURITE_SERVER}/favouriteNumber`, variable)
+      .then((response) => {
+        console.log("Im here");
+        if (response.data.success) {
+          setFavouriteNumber(response.data.favouriteNumber);
+        } else {
+          alert("Failed to get favourites Number");
+        }
+      });
   }, []);
   return (
     <div

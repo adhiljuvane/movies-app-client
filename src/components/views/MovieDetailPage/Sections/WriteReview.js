@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Input, message } from "antd";
+import { REVIEW_SERVER } from "../../../Config";
 import axios from "axios";
 const { TextArea } = Input;
 
@@ -15,7 +16,7 @@ const WriteReview = (props) => {
       movieId: props.movieId,
       review: e.target.value,
     };
-    axios.post("/api/reviews/write", data).then((response) => {
+    axios.post(`${REVIEW_SERVER}/write`, data).then((response) => {
       if (response.data.success) {
         message.success("Review submitted");
       } else {
